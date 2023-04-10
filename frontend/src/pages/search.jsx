@@ -28,16 +28,14 @@ function Search() {
       <div className='searchItens'>
 
         <select
-          type=""
           className='option'
-          name=""
           id="Tribunal"
           value={searchTerm}
           onChange={(event) => setSearchTerm(event.target.value) }>
         <option value="" selected> Número de Processo</option>
-          <option value="TJSP">TJSP</option>
           <option value="TJMG">TJMG</option>
           <option value="TJRS">TJRS</option>
+          <option value="TJSP">TJSP</option>
         </select>
 
         <input
