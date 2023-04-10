@@ -1,21 +1,30 @@
-# Desafio de Consulta Processual
+ # Desafio de Consulta Processual
 
-Nesse Desafio de consulta processual, comecei populando o Mongodb com os dados Json, em seguida, desenvolvi a API que se conecta com o MongoDB, 
-implementando os métodos read e readOne no controller. Na sequência, iniciei o desenvolvimento do front-end baixando a biblioteca 
-EsLint visando encontra e corrigir problemas do meu código e estiliza o meu código, 
-facilitando assim a criação do contexto que deixava o estado globa e as paginas de Busca e Explorar, conforme solicitado no desafio. 
-Na página de Busca, utilizei a biblioteca Axios para fazer a conexão do front e o back para que assim que o 
-usuário escolha o tribunal ou o CNJ que deseja ser redirecionando para página de Explorar que terá o processo que o usuário buscou, 
-onde poderá verificar o número do processo buscado, o autor e o réu, o tribunal de origem, a data do início, a data da movimentação e a descrição dela. 
-Feito o front e o back, comecei a fazer a realização dos testes de Frontend utilizando a biblioteca Jest com objetivo de testa o Axios e o seu retorno. 
-Fazendo assim que meu site rodasse localmente, para ter certeza que o meu código rodara num Mac OS X OU no Ubuntu conforme o desafio pedia, 
-decidir realizar, criando um Markfile e um Docker-compose na raiz da página que o DockerFile do front-end e do back-end rodasse, 
-esse sem dúvidas foi o meu maior desafio, me fazendo restrutura o meu código por completo para ter a maior certeza de que quando rodasse o 
-**make run** o contêiner do front, do back e Mongo subisse para rodar o meu site em qualquer máquina, 
-além disso, fiz o **make test** para a certeza que os meus testes ainda estava funcionando.
+Nesse Desafio de consulta processual, comecei populando o Mongodb com dados json, em seguida, desenvolvi a API que se conecta com o banco 
+implementando os métodos read e readOne no controller. 
 
-- Para rodar o meu codigo **make run**
-- Para rodar os meus testes **make test**
-- Abaixo vai estar o gif do meu site funcionando ⬇️
+Na sequência, iniciei o desenvolvimento do frontend usando a biblioteca React. Utilizei também o EsLint para encontrar e corrigir problemas no código. 
+
+Para a gestão de estado dos componentes foi utilizado a api react context.
+
+Na página de Busca utilizei o Axios para fazer a conexão do front com o back. Dessa forma, é possível buscar processos por tribunal ou número CNJ. 
+
+Na página de resultados o usuário poderá acessar dados como número do processo, autor, réu, tribunal de origem, data do início, data da movimentação e a descrição dela.
+
+Foram escritos testes em Jest com objetivo de garantir o funcionamento das chamadas http e conexão com o banco de dados.
+
+É possível executar e testar o código em qualquer máquina em razão do uso do docker.
+
+### Para rodar o código
+```bash
+make run
+```
+
+
+
+### Para rodar os testes 
+```bash
+make test
+```
 
 ![siteDeConsultaProcessual](https://user-images.githubusercontent.com/75230945/231012078-1dd95ba6-9dc5-4aa8-b1f4-b0824a2fadd9.gif)
