@@ -7,11 +7,11 @@ const LawsuitSchema = new mongoose.Schema(
     autor: String,
     reu: String,
     tribunal: String,
-    data: Date,
+    data: String,
     movimentacoes: [
       {
         descricao: String,
-        data: Date,
+        data: String,
       },
     ],
   },
