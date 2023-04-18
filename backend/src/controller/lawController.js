@@ -3,7 +3,7 @@ const LawModel = require("../model/lawModel");
 module.exports = {
   async readOne(req, res) {
     const { lawsuit } = req.params;
-    if (lawsuit.length <= 4) {
+    if (lawsuit.length <= 5) {
       const tri = await LawModel.find({ tribunal: lawsuit });
       console.log(tri);
       return res.json(tri);
