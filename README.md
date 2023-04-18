@@ -1,13 +1,13 @@
  # Desafio de Consulta Processual
 
-Nesse Desafio de consulta processual, comecei populando o Mongodb com dados json, em seguida, desenvolvi a API que se conecta com o banco 
-implementando os métodos read e readOne no controller. 
+Nesse desafio de consulta processual comecei populando o Mongodb com dados json, em seguida, desenvolvi a API que se conecta com o banco
+implementando os métodos read e readOne no controller.
 
-Na sequência, iniciei o desenvolvimento do frontend usando a biblioteca React. Utilizei também o EsLint para encontrar e corrigir problemas no código. 
+Na sequência, iniciei o desenvolvimento do frontend usando a biblioteca React. Utilizei também o EsLint para encontrar e corrigir problemas no código.
 
 Para a gestão de estado dos componentes foi utilizado a api react context.
 
-Na página de Busca utilizei o Axios para fazer a conexão do front com o back. Dessa forma, é possível buscar processos por tribunal ou número CNJ. 
+Na página de Busca utilizei o Axios para fazer a conexão do front com o back. Dessa forma, é possível buscar processos por tribunal ou número CNJ.
 
 Na página de resultados o usuário poderá acessar dados como número do processo, autor, réu, tribunal de origem, data do início, data da movimentação e a descrição dela.
 
@@ -22,7 +22,7 @@ make run
 
 
 
-### Para rodar os testes 
+### Para rodar os testes
 ```bash
 make test
 ```
