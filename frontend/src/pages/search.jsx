@@ -34,7 +34,7 @@ function Search() {
       });
   }, []);
 
-  const tribunaisUnicos = Array.from(new Set(lawCourt.map((element) => element.tribunal)));
+  const tribunaisUnicos = Array.from(new Set(lawCourt.map((element) => element.tribunal))).sort();
 
   return (
     <div className="box">
@@ -55,16 +55,10 @@ function Search() {
             Número de Processo
           </option>
           {
-
-
             tribunaisUnicos.map((tribunal) => (
               <option key={tribunal}>{tribunal}</option>
             ))
-
           }
-          {/* <option value="TJMG">TJMG</option>
-          <option value="TJRS">TJRS</option>
-          <option value="TJSP">TJSP</option> */}
         </select>
 
         <input
