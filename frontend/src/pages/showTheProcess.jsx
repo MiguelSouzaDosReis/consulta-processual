@@ -3,15 +3,6 @@ import { Link } from "react-router-dom";
 import MyContext from "../context/myContext";
 
 function ShowTheProcess() {
-  function formatDate(time) {
-    const data = new Date(time);
-    const day = data.getUTCDate().toString().padStart(2, "0");
-    const month = (data.getUTCMonth() + 1).toString().padStart(2, "0");
-    const year = data.getUTCFullYear().toString();
-    const formattedDate = `${day}/${month}/${year}`;
-
-    return formattedDate;
-  }
 
   const { document } = useContext(MyContext);
 
@@ -28,14 +19,14 @@ function ShowTheProcess() {
               {element.autor} (Autor) x {element.reu} (Réu)
             </p>
             <p>
-              {element.tribunal} - {formatDate(element.data)}{" "}
+              {element.tribunal} - {element.data}{" "}
             </p>
             <p>Movimentações:</p>
             <ul>
               {element.movimentacoes.map((movimentacao) => (
                 <div key={movimentacao._id}>
                   <li className="moviment">
-                    {movimentacao.descricao}: {formatDate(movimentacao.data)}
+                    {movimentacao.descricao}: {movimentacao.data}
                   </li>
                 </div>
               ))}
