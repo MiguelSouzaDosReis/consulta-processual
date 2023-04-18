@@ -1,6 +1,6 @@
 .PHONY: run
 run:
-	TARGET=build docker-compose up
+	TARGET=build docker-compose --compatibility up
 
 .PHONY: test
 test:
