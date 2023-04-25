@@ -27,6 +27,7 @@ function Search() {
     axios
       .get("http://localhost:3005/lawsuit")
       .then((response) => {
+        console.log(response.data)
         setLawCourt(response.data);
       })
       .catch((error) => {
@@ -34,8 +35,10 @@ function Search() {
       });
   }, []);
 
-  const tribunaisUnicos = Array.from(new Set(lawCourt.map((element) => element.tribunal))).sort();
-
+  let tribunaisUnicos = [];
+  if (lawCourt) {
+    tribunaisUnicos = Array.from(new Set(lawCourt.map((element) => element.tribunal))).sort();
+  }
   return (
     <div className="box">
       <h3 className="text">Busca</h3>

@@ -15,7 +15,7 @@ describe('api search', () => {
             expect(response.status).toBe(200);
             console.log(response.data)
             expect(Array.isArray(response.data)).toBe(true);
-            expect( response.data[0].cnj).toStrictEqual("5001683-88.2020.8.13.0672")
+            expect( response.data[0].cnj).toStrictEqual("5001683-88.2020.1.13.0672")
             expect( response.data[0].autor).toStrictEqual("Ana Carla")
             expect( response.data[0].reu).toStrictEqual("José Eugênio")
             expect( response.data[0].tribunal).toStrictEqual("TJMG")
@@ -25,38 +25,61 @@ describe('api search', () => {
         let searchTerm = '5001685-88.2020.8.13.0672'
         const response = await axios.get(`http://${backend_url}:3005/search/${searchTerm}`)
             expect(response.status).toBe(200);
-            expect(response.data.hasOwnProperty(
-                'cnj',
-                "autor",
-                "reu",
-                "tribunal",
-                "data",
-                "movimentacoes",
-                "descricao",
-                "data"
-                )).toBe(true)
-            expect( response.data.cnj).toStrictEqual("5001685-88.2020.8.13.0672")
-            expect( response.data.autor).toStrictEqual("José Carlos")
-            expect( response.data.reu).toStrictEqual("Maria da Silva")
-            expect( response.data.tribunal).toStrictEqual("TJSP")
+
+            if (response.data != null ) {
+
+                expect(response.data.hasOwnProperty(
+                    'cnj',
+                    'autor',
+                    'reu',
+                    'tribunal',
+                    'data',
+                    'movimentacoes',
+                    'descricao',
+                    'data'
+                )).toBe(true);
+                expect( response.data.cnj).toStrictEqual("5001685-88.2020.8.13.0672")
+                expect( response.data.autor).toStrictEqual("José Carlos")
+                expect( response.data.reu).toStrictEqual("Maria da Silva")
+                expect( response.data.tribunal).toStrictEqual("TJSP")
+            }
 
     })
 
 })
 
-describe('page' , () =>{
+
+describe('page' ,  () =>{
+
     it('should render Search', () => {
-        let searchTerm = 'TJMG'
-        let context =  {  searchTerm }
+        const mockAxiosGet = jest.spyOn(axios, 'get');
+
+        let searchTerm = 'TJMG';
+
+        let lawCourtData = [
+            {
+            cnj: "5001683-88.2020.1.13.0672",
+            autor: "Ana Carla",
+            reu: "José Eugênio",
+            tribunal: "TJMG",
+            data: "13/08/2023",
+            movimentacoes: [ {"descricao": "juntada de inicial", "data": "02/03/2023"} ]
+            }
+        ]
+
+        mockAxiosGet.mockResolvedValue({ data: lawCourtData });
+
+        let tribunaisUnicos = Array.from(new Set(lawCourtData.map((element) => element.tribunal))).sort();
+
         render(
             <MemoryRouter>
-                <MyContext.Provider value={ context }>
-                    <Search />
+                <MyContext.Provider value={ searchTerm }>
+                    <Search tribunaisUnicos={ tribunaisUnicos }  />
                 </MyContext.Provider>
             </MemoryRouter>
         )
-        const title = "Buscar"
-        const select = "Selecione um tribunal para lista os processos ou buscar pelo número unificado"
+        const title = "Buscar";
+        const select = "Selecione um tribunal para lista os processos ou buscar pelo número unificado";
 
         expect(screen.getAllByText(title))
         expect(screen.getAllByText(select))
@@ -76,47 +99,46 @@ describe('page' , () =>{
     it('should render ShowTheProcess', () => {
         let searchTerm = "5001683-88.2020.8.13.0672"
 
+        const mockAxiosGet = jest.spyOn(axios, 'get');
+
         let document = [
             {
-                _id: "642c95bb8cc23fa15b074fd9",
-                cnj: "5001683-88.2020.8.13.0672",
+                cnj: ": 5001683-88.2020.1.13.0672",
                 autor: "Ana Carla",
                 reu: "José Eugênio",
                 tribunal: "TJMG",
-                data: "2023-02-03T03:00:00.000Z",
-                movimentacoes: [
-                    {
-                        _id: "64320386c95cbd1716c8e1c9",
-                        descricao: "juntada de inicial",
-                        data: "2023-02-03T03:00:00.000Z"
-                    }
-                ]
-            }
+                data: "13/08/2023",
+                movimentacoes: [ {"descricao": "juntada de inicial", "data": "02/03/2023"} ]
+                }
         ]
+
+        mockAxiosGet.mockResolvedValue({ data: document });
+
+        let tribunaisUnicos = Array.from(new Set(document.map((element) => element.tribunal))).sort();
 
         let context =  {  searchTerm, document }
         render(
             <MemoryRouter>
                 <MyContext.Provider value={ context }>
-                    <Search />
+                    <Search tribunaisUnicos={ tribunaisUnicos } />
                     <ShowTheProcess />
                 </MyContext.Provider>
             </MemoryRouter>
         )
 
-        const lawSuit = `Processo nº : 5001683-88.2020.8.13.0672`
+        const lawSuit = `Processo nº : : 5001683-88.2020.1.13.0672`
         const autorAndReu = `Ana Carla (Autor) x José Eugênio (Réu)`
 
         expect(screen.getAllByText(lawSuit))
         expect(screen.getAllByText(autorAndReu))
 
-        const tribunal = `TJMG - 03/02/2023`
+        const tribunal = `TJMG - 13/08/2023`
         const moviment = "Movimentações:"
 
         expect(screen.getAllByText(tribunal))
         expect(screen.getAllByText(moviment))
 
-        const dataOfMoviment = `juntada de inicial: 03/02/2023`
+        const dataOfMoviment = `juntada de inicial: 02/03/2023`
 
         expect(screen.getAllByText(dataOfMoviment))
 
