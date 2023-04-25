@@ -1,10 +1,10 @@
 .PHONY: run
 run:
-	TARGET=build docker-compose --compatibility up
+	CMD=start docker-compose --compatibility up
 
 .PHONY: test
 test:
-	TARGET=test docker-compose up
+	CMD=test docker-compose up
 
 .PHONY: clear-mongo
 clear-mongo:

@@ -1,23 +1,23 @@
-version: "3"
+version: "3.4"
 services:
   frontend:
-    build:
-      context: ./frontend
-      target: ${TARGET}
+    build: .
     ports:
       - "3000:3000"
     restart: always
     volumes:
       - ./frontend/src:/usr/src/app/src
+    command: npm run ${CMD}
     depends_on:
       - backend
   backend:
-    build: ./backend
+    build: .
     ports:
       - "3005:3005"
     restart: always
     volumes:
       - ./backend/src:/usr/src/app/src
+    command: npm run start
     depends_on:
       - mongo
   mongo:
